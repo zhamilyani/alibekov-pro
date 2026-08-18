@@ -7,15 +7,14 @@
 <meta name="description" content="Онлайн-тренинг «Хватит ли вам денег на всю оставшуюся жизнь?». За 60 минут вы увидите свою финансовую жизнь на десятилетия вперёд. Стоимость 3 900 ₸. Ведущий — Тимур Алибеков, основатель сетей «Хозяюшка» и «Patisson»." />
 <meta name="theme-color" content="#fbf3e9" />
 
-<!-- Google tag (gtag.js) — РАСКОММЕНТИРУЙ И ВСТАВЬ ID ПОСЛЕ СОЗДАНИЯ АККАУНТА GOOGLE ADS
-<script async src="https://www.googletagmanager.com/gtag/js?id=AW-XXXXXXXXX"></script>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=AW-18318471443"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
   gtag('js', new Date());
-  gtag('config', 'AW-XXXXXXXXX');
+  gtag('config', 'AW-18318471443');
 </script>
--->
 
 <meta property="og:type" content="website" />
 <meta property="og:title" content="Хватит ли вам денег на всю оставшуюся жизнь?" />
@@ -403,10 +402,10 @@ var TASKMAN_URL      = "https://crm.alibekov.pro"; // Taskman
   document.querySelectorAll(".cta-wa").forEach(function(a){
     if(waUrl){ a.href=waUrl; a.target="_blank"; a.rel="noopener"; }
     else { a.href="#zayavka"; } // если номер не задан — скролл к секции записи
-    // конверсия для Google Ads — сработает, как только выше подключишь gtag.js
+    // конверсия для Google Ads — доклеить label после AW-18318471443/, как только заведём Conversion Action
     a.addEventListener("click", function(){
       if (typeof gtag === "function") {
-        gtag('event', 'conversion', {'send_to': 'AW-XXXXXXXXX/XXXXXXXXXXXXXXXXXXXX'});
+        gtag('event', 'conversion', {'send_to': 'AW-18318471443/XXXXXXXXXXXXXXXXXXXX'});
       }
     });
   });
