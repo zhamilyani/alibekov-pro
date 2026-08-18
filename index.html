@@ -402,10 +402,10 @@ var TASKMAN_URL      = "https://crm.alibekov.pro"; // Taskman
   document.querySelectorAll(".cta-wa").forEach(function(a){
     if(waUrl){ a.href=waUrl; a.target="_blank"; a.rel="noopener"; }
     else { a.href="#zayavka"; } // если номер не задан — скролл к секции записи
-    // конверсия для Google Ads — доклеить label после AW-18318471443/, как только заведём Conversion Action
+    // конверсия для Google Ads — клик по WhatsApp
     a.addEventListener("click", function(){
       if (typeof gtag === "function") {
-        gtag('event', 'conversion', {'send_to': 'AW-18318471443/XXXXXXXXXXXXXXXXXXXX'});
+        gtag('event', 'conversion', {'send_to': 'AW-18318471443/UiQUCLms_OMcEJPi9p5E', 'value': 1.0, 'currency': 'USD'});
       }
     });
   });
