@@ -197,6 +197,7 @@ footer{border-top:3px double var(--line-strong);padding:30px 0;font-family:'Inte
     <div class="mast-actions">
       <a class="btn line app-enter" href="#" data-app>Финбалансер</a>
       <a class="btn line app-enter" href="#" data-taskman>Taskman</a>
+      <a class="btn line app-enter" href="#" data-tenge>Тенге Капитал</a>
       <a class="btn sal cta-wa" href="#zayavka">Записаться</a>
     </div>
   </div>
@@ -361,10 +362,11 @@ footer{border-top:3px double var(--line-strong);padding:30px 0;font-family:'Inte
 <!-- APP ENTRY -->
 <section style="padding:34px 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line)" aria-labelledby="app-entry-title">
   <div class="wrap" style="display:flex;flex-wrap:wrap;gap:18px;align-items:center;justify-content:space-between">
-    <p id="app-entry-title" style="font-size:18px;margin:0;max-width:46ch">Уже участник программы «Финбаланс»? Откройте свой личный кабинет или менеджер задач.</p>
+    <p id="app-entry-title" style="font-size:18px;margin:0;max-width:46ch">Уже наш ученик? Личный кабинет, менеджер задач — или сыграйте в «Тенге Капитал».</p>
     <div style="display:flex;flex-wrap:wrap;gap:12px">
       <a class="btn line" href="#" data-app>Перейти в Финбалансер →</a>
       <a class="btn line" href="#" data-taskman>Перейти в Taskman →</a>
+      <a class="btn line" href="#" data-tenge>Сыграть в Тенге Капитал →</a>
     </div>
   </div>
 </section>
@@ -373,7 +375,7 @@ footer{border-top:3px double var(--line-strong);padding:30px 0;font-family:'Inte
 
 <footer role="contentinfo"><div class="wrap foot">
   <span>© 2026 Тимур Алибеков · <a href="https://alibekov.pro">alibekov.pro</a></span>
-  <span><a href="#" data-app>Перейти в Финбалансер</a> · <a href="#" data-taskman>Перейти в Taskman</a></span>
+  <span><a href="#" data-app>Перейти в Финбалансер</a> · <a href="#" data-taskman>Перейти в Taskman</a> · <a href="#" data-tenge>Тенге Капитал</a></span>
 </div></footer>
 
 <!-- STICKY MOBILE CTA -->
@@ -394,6 +396,7 @@ var WHATSAPP_NUMBER = "77077570443"; // Тимур Алибеков
 var WHATSAPP_TEXT   = "Здравствуйте! Хочу записаться на тренинг «Хватит ли мне денег на всю оставшуюся жизнь?» (3 900 ₸).";
 var APP_URL         = "https://app.alibekov.pro"; // Финбалансер
 var TASKMAN_URL      = "https://crm.alibekov.pro"; // Taskman
+var TENGE_URL        = "https://tk.alibekov.pro"; // Тенге Капитал
 
 (function(){
   var clean = (WHATSAPP_NUMBER||"").replace(/[^\d]/g,"");
@@ -413,6 +416,7 @@ var TASKMAN_URL      = "https://crm.alibekov.pro"; // Taskman
   // кнопки «Перейти в Финбалансер» / «Перейти в Taskman»
   document.querySelectorAll("[data-app]").forEach(function(a){ a.href=APP_URL; });
   document.querySelectorAll("[data-taskman]").forEach(function(a){ a.href=TASKMAN_URL; });
+  document.querySelectorAll("[data-tenge]").forEach(function(a){ a.href=TENGE_URL; });
 
   // reveal
   var io=new IntersectionObserver(function(es){
