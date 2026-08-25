@@ -101,6 +101,11 @@ img{max-width:100%;display:block}
 .facts li{display:flex;justify-content:space-between;gap:14px;padding:11px 0;border-bottom:1px solid var(--line);font-size:14.5px}
 .facts li b{font-weight:700}
 .facts li span{color:var(--muted)}
+.cd{display:flex;margin-top:18px;border:1px solid var(--line-strong)}
+.cd .c{flex:1;text-align:center;padding:12px 4px;border-right:1px solid var(--line)}
+.cd .c:last-child{border-right:0}
+.cd .n{font-family:'Playfair Display';font-size:28px;font-weight:800;color:var(--salmon-d);line-height:1}
+.cd .l{font-family:'Inter';font-size:9.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted-2);margin-top:4px}
 .hero-side .btn{width:100%;margin-top:16px}
 
 section{padding:56px 0}
@@ -238,6 +243,13 @@ footer{border-top:3px double var(--line-strong);padding:30px 0;font-family:'Inte
           <li><span>Оплата</span><b>Kaspi QR</b></li>
           <li><span>Мест в группе</span><b>Ограничено</b></li>
         </ul>
+        <p class="sr-only" id="cd-sr">До начала тренинга осталось время — точную дату смотрите выше.</p>
+        <div class="cd" aria-hidden="true">
+          <div class="c"><div class="n" id="cd-d">—</div><div class="l">дн</div></div>
+          <div class="c"><div class="n" id="cd-h">—</div><div class="l">час</div></div>
+          <div class="c"><div class="n" id="cd-m">—</div><div class="l">мин</div></div>
+          <div class="c"><div class="n" id="cd-s">—</div><div class="l">сек</div></div>
+        </div>
         <a class="btn sal cta-wa" href="#zayavka">
           <svg class="wa" viewBox="0 0 32 32" fill="currentColor" aria-hidden="true"><path d="M16 3C9.4 3 4 8.3 4 14.9c0 2.3.6 4.5 1.8 6.4L4 29l7-1.8c1.8 1 3.9 1.5 6 1.5 6.6 0 12-5.3 12-11.9C29 8.3 23.6 3 16 3zm0 21.7c-1.9 0-3.7-.5-5.3-1.5l-.4-.2-4.1 1.1 1.1-4-.2-.4a9.6 9.6 0 01-1.5-5.2C5.6 9.3 10.3 4.7 16 4.7c5.7 0 10.4 4.6 10.4 10.2S21.7 24.7 16 24.7zm5.7-7.6c-.3-.2-1.8-.9-2.1-1-.3-.1-.5-.2-.7.2-.2.3-.8 1-1 1.2-.2.2-.4.2-.7.1-1.8-.9-3-1.6-4.2-3.6-.3-.5.3-.5.9-1.6.1-.2 0-.4 0-.5-.1-.2-.7-1.6-.9-2.2-.2-.6-.5-.5-.7-.5h-.6c-.2 0-.5.1-.8.4-.3.3-1 1-1 2.5s1.1 2.9 1.2 3.1c.2.2 2.1 3.3 5.2 4.6 1.9.8 2.7.9 3.6.8.6-.1 1.8-.7 2-1.4.3-.7.3-1.3.2-1.4-.1-.2-.3-.3-.6-.4z"/></svg>
           Записаться через WhatsApp
@@ -467,18 +479,23 @@ var TRAINING_WEEKDAY = 1;            // 0=вс, 1=пн, 2=вт ... 6=сб
 var TRAINING_HOUR    = 20;           // час начала (24ч формат)
 var TRAINING_TZ      = "Asia/Almaty";
 
+function nextTrainingDate(){
+  // Алматы — фиксированный UTC+5, без перехода на летнее время.
+  var now = new Date();
+  var parts = new Intl.DateTimeFormat("en-US", {timeZone: TRAINING_TZ, year:"numeric", month:"2-digit", day:"2-digit", weekday:"short", hourCycle:"h23", hour:"numeric"}).formatToParts(now);
+  var map = {}; parts.forEach(function(p){ map[p.type] = p.value; });
+  var wdMap = {Sun:0,Mon:1,Tue:2,Wed:3,Thu:4,Fri:5,Sat:6};
+  var wd = wdMap[map.weekday];
+  var hour = parseInt(map.hour, 10);
+  var y = parseInt(map.year, 10), mo = parseInt(map.month, 10), d = parseInt(map.day, 10);
+  var daysAhead = (TRAINING_WEEKDAY - wd + 7) % 7;
+  if(daysAhead === 0 && hour >= TRAINING_HOUR){ daysAhead = 7; }
+  var almatyOffsetMs = 5*60*60*1000;
+  var targetMs = Date.UTC(y, mo-1, d, TRAINING_HOUR, 0, 0) + daysAhead*86400000 - almatyOffsetMs;
+  return new Date(targetMs);
+}
+
 (function(){
-  function nextTrainingDate(){
-    var now = new Date();
-    var parts = new Intl.DateTimeFormat("en-US", {timeZone: TRAINING_TZ, weekday:"short", hourCycle:"h23", hour:"numeric"}).formatToParts(now);
-    var map = {}; parts.forEach(function(p){ map[p.type] = p.value; });
-    var wdMap = {Sun:0,Mon:1,Tue:2,Wed:3,Thu:4,Fri:5,Sat:6};
-    var wd = wdMap[map.weekday];
-    var hour = parseInt(map.hour, 10);
-    var daysAhead = (TRAINING_WEEKDAY - wd + 7) % 7;
-    if(daysAhead === 0 && hour >= TRAINING_HOUR){ daysAhead = 7; }
-    return new Date(now.getTime() + daysAhead*24*60*60*1000);
-  }
   var target = nextTrainingDate();
   var weekday = new Intl.DateTimeFormat("ru-RU", {timeZone: TRAINING_TZ, weekday:"long"}).format(target);
   var dateStr = new Intl.DateTimeFormat("ru-RU", {timeZone: TRAINING_TZ, day:"numeric", month:"long"}).format(target);
@@ -490,6 +507,29 @@ var TRAINING_TZ      = "Asia/Almaty";
 
   var fact = document.getElementById("next-date-fact");
   if(fact){ fact.textContent = weekdayCap + ", " + dateStr + " · " + timeStr; }
+
+  var sr = document.getElementById("cd-sr");
+  if(sr){ sr.textContent = "До начала тренинга: " + weekday + ", " + dateStr + ", " + timeStr + " по времени Алматы."; }
+})();
+
+// countdown — пересчитывает цель каждый тик, поэтому по прошествии
+// понедельника сам переключается на следующий, без ручной правки
+(function(){
+  var elD=document.getElementById("cd-d"), elH=document.getElementById("cd-h"),
+      elM=document.getElementById("cd-m"), elS=document.getElementById("cd-s");
+  if(!elD) return;
+  function p(n){ return (n<10?"0":"")+n; }
+  var target = nextTrainingDate().getTime();
+  function tick(){
+    var x = target - Date.now();
+    if(x <= 0){ target = nextTrainingDate().getTime(); x = target - Date.now(); }
+    var v = Math.floor(x/1000);
+    elD.textContent = Math.floor(v/86400);
+    elH.textContent = p(Math.floor(v%86400/3600));
+    elM.textContent = p(Math.floor(v%3600/60));
+    elS.textContent = p(v%60);
+  }
+  tick(); setInterval(tick, 1000);
 })();
 
 (function(){
