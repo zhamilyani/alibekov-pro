@@ -223,7 +223,7 @@ footer{border-top:3px double var(--line-strong);padding:30px 0;font-family:'Inte
 <!-- HERO -->
 <section class="hero" aria-labelledby="hero-title">
   <div class="wrap">
-    <p class="kick reveal">Специальный выпуск · онлайн · 60 минут</p>
+    <p class="kick reveal" id="next-date-kick">Специальный выпуск · онлайн · 60 минут</p>
     <h1 id="hero-title">Хватит ли вам денег на всю оставшуюся жизнь?</h1>
     <div class="hero-grid">
       <div class="hero-lead reveal">
@@ -231,6 +231,7 @@ footer{border-top:3px double var(--line-strong);padding:30px 0;font-family:'Inte
       </div>
       <div class="hero-side reveal">
         <ul class="facts">
+          <li><span>Дата</span><b id="next-date-fact">Понедельник · 20:00</b></li>
           <li><span>Формат</span><b>Онлайн · 60 мин</b></li>
           <li><span>Тренинг</span><b>3 900 ₸</b></li>
           <li><span>С игрой «Тенге Капитал»</span><b>9 990 ₸</b></li>
@@ -457,6 +458,39 @@ var WHATSAPP_TEXTS = {
 var APP_URL         = "https://app.alibekov.pro"; // Финбалансер
 var TASKMAN_URL      = "https://crm.alibekov.pro"; // Taskman
 var TENGE_URL        = "https://tk.alibekov.pro"; // Тенге Капитал
+
+/* Дата тренинга — автоматически, ближайший понедельник 20:00 по Алматы.
+   Ничего менять руками не нужно: при каждом заходе на сайт дата
+   пересчитывается заново. Чтобы сменить день/час/часовой пояс — правь
+   константы ниже. */
+var TRAINING_WEEKDAY = 1;            // 0=вс, 1=пн, 2=вт ... 6=сб
+var TRAINING_HOUR    = 20;           // час начала (24ч формат)
+var TRAINING_TZ      = "Asia/Almaty";
+
+(function(){
+  function nextTrainingDate(){
+    var now = new Date();
+    var parts = new Intl.DateTimeFormat("en-US", {timeZone: TRAINING_TZ, weekday:"short", hourCycle:"h23", hour:"numeric"}).formatToParts(now);
+    var map = {}; parts.forEach(function(p){ map[p.type] = p.value; });
+    var wdMap = {Sun:0,Mon:1,Tue:2,Wed:3,Thu:4,Fri:5,Sat:6};
+    var wd = wdMap[map.weekday];
+    var hour = parseInt(map.hour, 10);
+    var daysAhead = (TRAINING_WEEKDAY - wd + 7) % 7;
+    if(daysAhead === 0 && hour >= TRAINING_HOUR){ daysAhead = 7; }
+    return new Date(now.getTime() + daysAhead*24*60*60*1000);
+  }
+  var target = nextTrainingDate();
+  var weekday = new Intl.DateTimeFormat("ru-RU", {timeZone: TRAINING_TZ, weekday:"long"}).format(target);
+  var dateStr = new Intl.DateTimeFormat("ru-RU", {timeZone: TRAINING_TZ, day:"numeric", month:"long"}).format(target);
+  var weekdayCap = weekday.charAt(0).toUpperCase() + weekday.slice(1);
+  var timeStr = TRAINING_HOUR + ":00";
+
+  var kick = document.getElementById("next-date-kick");
+  if(kick){ kick.textContent = "Ближайший поток — " + weekday + ", " + dateStr + " · " + timeStr + " · онлайн"; }
+
+  var fact = document.getElementById("next-date-fact");
+  if(fact){ fact.textContent = weekdayCap + ", " + dateStr + " · " + timeStr; }
+})();
 
 (function(){
   var clean = (WHATSAPP_NUMBER||"").replace(/[^\d]/g,"");
