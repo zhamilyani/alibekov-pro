@@ -204,6 +204,19 @@ footer{border-top:3px double var(--line-strong);padding:30px 0;font-family:'Inte
 .reveal{opacity:0;transform:translateY(20px);transition:opacity .7s,transform .7s}
 .reveal.in{opacity:1;transform:none}
 @media(prefers-reduced-motion:reduce){.reveal{opacity:1;transform:none;transition:none}html{scroll-behavior:auto}}
+/* GROUP OF COMPANIES */
+.group-lead{text-align:center;color:var(--muted);font-size:17px;max-width:56ch;margin:0 auto 26px}
+.group{display:grid;grid-template-columns:repeat(4,1fr);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+@media(max-width:860px){.group{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:460px){.group{grid-template-columns:1fr}}
+.group a{display:flex;flex-direction:column;gap:6px;padding:26px 22px;text-decoration:none;color:var(--ink);border-right:1px solid var(--line);transition:background .18s ease}
+.group a:last-child{border-right:0}
+.group a:hover,.group a:focus-visible{background:var(--card)}
+@media(max-width:860px){.group a:nth-child(2n){border-right:0}.group a:nth-child(-n+2){border-bottom:1px solid var(--line)}}
+@media(max-width:460px){.group a{border-right:0;border-bottom:1px solid var(--line)}.group a:last-child{border-bottom:0}}
+.group .nm{font-family:'Playfair Display';font-weight:700;font-size:21px;line-height:1.2}
+.group .ds{font-size:14px;color:var(--muted);line-height:1.45}
+.group .url{font-family:'Inter',sans-serif;font-size:12px;font-weight:600;letter-spacing:.06em;color:var(--salmon-d);margin-top:auto;padding-top:8px}
 </style>
 </head>
 <body>
@@ -336,6 +349,36 @@ footer{border-top:3px double var(--line-strong);padding:30px 0;font-family:'Inte
       </ul>
     </div>
   </div></div>
+</section>
+
+<!-- GROUP OF COMPANIES -->
+<section style="padding-top:0" aria-labelledby="group-title">
+  <div class="wrap">
+    <div class="sec-rule reveal"><h2 id="group-title">Группа компаний</h2><span class="ln" aria-hidden="true"></span></div>
+    <p class="group-lead reveal">Розничные проекты, которые я строю и развиваю каждый день, — практика, из которой выросли и этот тренинг, и игра «Тенге Капитал».</p>
+    <div class="group reveal">
+      <a href="https://xn--80anjo8au5bh.kz" target="_blank" rel="noopener">
+        <span class="nm">Хозяюшка</span>
+        <span class="ds">Всё для дома с доставкой по Алматы</span>
+        <span class="url">хозяюшка.kz</span>
+      </a>
+      <a href="https://etemia.kz" target="_blank" rel="noopener">
+        <span class="nm">Etemia</span>
+        <span class="ds">Космецевтика — кожа узнаёт состав</span>
+        <span class="url">etemia.kz</span>
+      </a>
+      <a href="https://nalei.kz" target="_blank" rel="noopener">
+        <span class="nm">Налей 24/7</span>
+        <span class="ds">Магазин-бар с круглосуточной доставкой</span>
+        <span class="url">nalei.kz</span>
+      </a>
+      <a href="https://nolabel.kz" target="_blank" rel="noopener">
+        <span class="nm">NOLABEL</span>
+        <span class="ds">Парфюмерия по мотивам люкса</span>
+        <span class="url">nolabel.kz</span>
+      </a>
+    </div>
+  </div>
 </section>
 
 <!-- PREPARE -->

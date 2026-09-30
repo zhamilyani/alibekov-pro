@@ -118,6 +118,16 @@
   .btn.sal small{ color:#fdeae5; }
   .btn.wa{ background:#ffffff; }
 
+  .shops{ display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-bottom:26px; }
+  .shop{
+    display:flex; flex-direction:column; gap:3px;
+    padding:.8rem .9rem; background:var(--card); border:1px solid var(--line-strong);
+    text-decoration:none; color:var(--ink);
+  }
+  .shop:focus-visible{ outline:3px solid var(--salmon); outline-offset:2px; }
+  .shop .nm{ font-family:'Playfair Display',Georgia,serif; font-weight:700; font-size:1.02rem; line-height:1.15; }
+  .shop .ds{ font-size:.78rem; color:var(--muted); line-height:1.35; }
+  .shop .url{ font-family:'Inter',sans-serif; font-size:.68rem; font-weight:600; letter-spacing:.05em; color:var(--salmon-d); margin-top:3px; }
   footer{
     border-top:1px solid var(--line-strong); padding-top:12px; text-align:center;
     font-family:'Inter',sans-serif; font-size:.68rem; color:var(--muted-2);
@@ -207,6 +217,32 @@
       <a class="btn" href="https://alibekov.pro" target="_blank" rel="noopener">
         <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a15 15 0 0 1 0 18 15 15 0 0 1 0-18z"/></svg>
         <span class="txt">Сайт<small>alibekov.pro</small></span>
+      </a>
+    </div>
+  </section>
+
+  <section aria-labelledby="group-title">
+    <h2 class="sec-title" id="group-title">Группа компаний</h2>
+    <div class="shops">
+      <a class="shop" href="https://xn--80anjo8au5bh.kz" target="_blank" rel="noopener">
+        <span class="nm">Хозяюшка</span>
+        <span class="ds">Всё для дома с доставкой</span>
+        <span class="url">хозяюшка.kz</span>
+      </a>
+      <a class="shop" href="https://etemia.kz" target="_blank" rel="noopener">
+        <span class="nm">Etemia</span>
+        <span class="ds">Космецевтика</span>
+        <span class="url">etemia.kz</span>
+      </a>
+      <a class="shop" href="https://nalei.kz" target="_blank" rel="noopener">
+        <span class="nm">Налей 24/7</span>
+        <span class="ds">Магазин-бар, доставка круглосуточно</span>
+        <span class="url">nalei.kz</span>
+      </a>
+      <a class="shop" href="https://nolabel.kz" target="_blank" rel="noopener">
+        <span class="nm">NOLABEL</span>
+        <span class="ds">Парфюмерия по мотивам люкса</span>
+        <span class="url">nolabel.kz</span>
       </a>
     </div>
   </section>
