@@ -226,3 +226,45 @@ footer{border-top:3px double var(--line-strong);padding:30px 0;font-family:'Inte
 .stages .wk{font-family:'Inter',sans-serif;font-size:12px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--ochre);padding-top:6px}
 .stages h3{font-size:22px}
 .stages p{color:var(--muted);font-size:16.5px;margin-top:6px;max-width:58ch}
+
+/* ───────── Три тарифа в ряд (пакеты сопровождения) ───────── */
+.tariffs.three{grid-template-columns:repeat(3,1fr)}
+.tariffs.three .tariff{padding:32px 26px 28px;border-right:1px solid var(--line)}
+.tariffs.three .tariff:last-child{border-right:0}
+.tariffs.three .tariff h3{max-width:none}
+.tariffs.three .tariff .desc{max-width:none}
+@media(max-width:860px){
+  .tariffs.three{grid-template-columns:1fr}
+  .tariffs.three .tariff{border-right:0;border-bottom:1px solid var(--line);padding:28px 0 24px}
+  .tariffs.three .tariff:last-child{border-bottom:0}
+}
+
+/* список того, что входит в пакет */
+.tariff .inc{list-style:none;display:flex;flex-direction:column;gap:9px;margin:16px 0 4px;font-size:15.5px;color:var(--muted)}
+.tariff .inc li{display:flex;gap:10px;align-items:baseline}
+.tariff .inc .t{flex:0 0 auto;font-family:'Playfair Display',Georgia,serif;font-weight:700;color:var(--ochre)}
+
+/* допуслуги — две карточки в рамке */
+.extras{display:grid;grid-template-columns:1fr 1fr;border:1px solid var(--line-strong);margin-top:26px}
+@media(max-width:680px){.extras{grid-template-columns:1fr}}
+.extras .ex{padding:26px 28px;border-right:1px solid var(--line)}
+.extras .ex:last-child{border-right:0}
+@media(max-width:680px){.extras .ex{border-right:0;border-bottom:1px solid var(--line)}.extras .ex:last-child{border-bottom:0}}
+.extras h3{font-size:21px}
+.extras .pr{font-family:'Playfair Display',Georgia,serif;font-size:26px;font-weight:800;color:var(--salmon-d);margin:8px 0 6px}
+.extras p{color:var(--muted);font-size:15.5px}
+
+/* «чем отличается от соседнего оффера» — разводка близких программ */
+.compare{border:3px double var(--line-strong);padding:30px 34px;margin-top:8px}
+.compare h2{font-size:24px;margin-bottom:12px}
+.compare p{color:var(--muted);font-size:16.5px;max-width:70ch}
+.compare p + p{margin-top:10px}
+.compare .btn{margin-top:18px}
+
+/* кнопки пакетов прижимаются к низу карточки — иначе из-за списков разной
+   длины они встают на разной высоте и ряд выглядит неровным */
+.tariffs.three .tariff{display:flex;flex-direction:column}
+.tariffs.three .tariff .inc{margin-bottom:22px}
+.tariffs.three .tariff .btn{margin-top:auto}
+/* бейдж — компактный чип, а не полоса во всю ширину флекс-колонки */
+.tariffs.three .tariff .badge{align-self:flex-start}
