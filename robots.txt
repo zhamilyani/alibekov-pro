@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+Disallow: /card-print.html
+
+Sitemap: https://alibekov.pro/sitemap.xml

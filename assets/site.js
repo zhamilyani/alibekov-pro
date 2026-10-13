@@ -26,7 +26,19 @@ var ADS_SEND_TO = "AW-18318471443/UiQUCLms_OMcEJPi9p5E";
     var text = WHATSAPP_TEXTS[a.getAttribute("data-wa-text")] || WHATSAPP_TEXTS.default;
     var waUrl = clean && WHATSAPP_NUMBER.indexOf("X") === -1
       ? "https://wa.me/" + clean + "?text=" + encodeURIComponent(text) : null;
-    if(waUrl){ a.href = waUrl; a.target = "_blank"; a.rel = "noopener"; }
+    if(waUrl){
+      a.href = waUrl; a.target = "_blank"; a.rel = "noopener";
+      // предупреждение о новой вкладке: для незрячего неожиданный переход дезориентирует.
+      // Если у ссылки есть aria-label, он перебивает текст — дописываем именно в него.
+      if(a.hasAttribute("aria-label")){
+        a.setAttribute("aria-label", a.getAttribute("aria-label") + " (откроется в новой вкладке)");
+      } else if(!a.querySelector(".sr-only")){
+        var hint = document.createElement("span");
+        hint.className = "sr-only";
+        hint.textContent = " (откроется в новой вкладке)";
+        a.appendChild(hint);
+      }
+    }
     else { a.href = "#zayavka"; } // если номер не задан — скролл к секции записи
     a.addEventListener("click", function(){
       if(typeof gtag === "function"){
